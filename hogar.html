@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vivas Seguros</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seguros Vivas - Cotizá tu seguro - Hogar"/>
+    <meta name="keywors" content="seguro, vivienda, seguridad, casa, departamento, auto, moto, tranquilidad">
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Vivi con tranquilidad"/>
+    <meta property="og:image" content="https://png.pngtree.com/png-vector/20221221/ourmid/pngtree-moving-housewarming-big-house-car-small-tree-vector-png-image_6503696.png"/>
+    <meta property="og:url" content="https://segurosvivas.netlify.app/"/>
+</head>
+<body id="info">
+  <div class="head">
+    <div class="header"> 
+        <a href="index.html"> <img class="logo" src="img/logocasa.png" alt="logo casa"></a>
+    </div>         
+    <div class="barra">
+    <nav>
+        <ul>
+            <li><a href="hogar.html"><u>Hogar</u></a></li>
+            <li><a href="auto.html">Auto</a></li>   
+        </ul>
+    </nav>
+    </div>
+    
+  </div>
+
+  <div class="cuerpo">
+  <h1>Cotizador de seguros para el hogar</h1>
+  <h2>Introduzca los datos correctamente para realizar la cotización</h2>
+
+    <form id="miCotizacion">
+        <label for="nombre">Introduce tu nombre completo:</label>
+        <br>
+        <input type="text" id="nombre" name="nombre">
+        <br>
+
+        <label for="email">Introduce tu Email de contacto:</label>
+        <br>
+        <input type="email" id="email" name="email">
+        <br>
+
+        <label for="vivienda">Tipo de Vivienda:(introduce un número) <br>
+          <dd>1) Casa -- 2)Departamento</label>
+          </dd>
+        <input type="number" id="vivienda" name="vivienda">
+        <br>
+
+        <label for="metros">Cuantos metros cuadrados posee?</label>
+        <br>
+        <input type="number" id="metros" name="metros">
+        <br>
+
+        <label for="tipoplan">Que tipo de seguro deseas:(introduce un número)<dd>1) Básico -- 2) Completo --   3) Full </label>
+        </dd>
+        <input type="number" id="tipoplan" name="tipoplan">
+        <br><br>
+
+        <button id="botonhogar" type="submit">Cotizar</button>
+                
+        <div id="compra"></div>
+      
+    </form>
+   
+  </div>
+  <footer>
+      <div class="foot">
+        <p>Central telefónica y Ventas</p>
+        <a class="gacontacto" href="tel:08009994321">0800-999-1234</a>
+      </div>
+
+      <div class="foot">
+        <p>WhatsApp </p>
+        <a class="gacontacto" href="https://api.whatsapp.com/send?phone=+54911-1234-5678" target="_blank">+54 9 11-1234-5678</a>
+      </div>
+
+      <div class="foot">
+        <p>Emergencias y Grua</p>
+        <a class="gacontacto" href="tel:08009994321">0800-999-4321</a>
+      </div>
+
+      <div class="foot">
+        <p>E-mail</p>
+        <a class="gacontacto" href="mailto:contacto@pspitbull.com.ar" target="_blank">segurosvivas@gnail.com.ar</a>
+      </div>
+  </footer>
+
+      <script src="js/main.js"></script>
+</body>
+</html>
