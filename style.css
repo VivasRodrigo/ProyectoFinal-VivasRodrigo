@@ -15,7 +15,7 @@ body{
 
 .logo{
     width:150px;
-    width: auto;
+    height: auto;
     margin: 0   auto;
 }
 
@@ -233,7 +233,7 @@ h4{
 @media (min-width: 0px) and (max-width:1300px)
 {
     .logo{
-        height: 100px;
+        width: 100px;
     }
     nav ul li
     {
