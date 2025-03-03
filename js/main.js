@@ -42,7 +42,7 @@ const clienteauto ={
     Contacto: "",
     Marca:"",
     Modelo:"",
-    Año:0,
+    Año:"",
     Tipo:"",
     GNC:"",
     Seguro:"",
@@ -54,11 +54,16 @@ function producto(a, b){
     return a * b;
 }
 
+
+
 document.addEventListener('submit', (event) =>{
 event.preventDefault();
 
+
+
 //Programa COTIZADOR HOGAR
-    if (event.target.id === 'miCotizacion') {   
+    if (event.target.id === 'miCotizacion') {  
+
         const nombre = document.getElementById('nombre').value;
             cliente.Nombre= nombre;
         const email = document.getElementById('email').value;
@@ -69,7 +74,7 @@ event.preventDefault();
             } else if(vivienda == 2){
             cliente.Tipo="Departamento";
             } else {
-            cliente.Tipo= "ERROR, ingresar una opción correcta";
+            cliente.Tipo= "";
             }
         const metros = document.getElementById('metros').value;
             cliente.Metros= metros;
@@ -81,8 +86,24 @@ event.preventDefault();
             }else if(tipoplan == 3){
             cliente.Seguro= "Full";
             }else {
-            cliente.Seguro= "ERROR, ingresar una opción correcta";
+            cliente.Seguro= "";
             }
+
+        // si no hay datos cargados sale mensaje de advertencia.
+        if (cliente.Nombre === "" ||
+            cliente.Contacto === "" ||
+            cliente.Tipo === "" ||
+            cliente.Metros === "" ||
+            cliente.Seguro === ""){
+                Swal.fire({
+                title: "Completa todos los datos!",
+                icon: "warning",
+                background: '#efefd0',
+                color: '#051923', 
+                confirmButtonColor: '#72e0b8', 
+                iconColor:"#f58a18"
+                });
+        } else{
     
         if(vivienda == 1){
             if(metros >0 && metros <=150){
@@ -118,49 +139,65 @@ event.preventDefault();
 
         cliente.Precio= presupuesto;        
 
-        if (presupuesto != 0){
+        if (presupuesto !="" || presupuesto!= 0){
             cliente.Fecha= new Date;
 
-            let usuarioGuardado = JSON.stringify(cliente);
-            localStorage.setItem("cliente", usuarioGuardado);
-
             const compra = document.getElementById('compra');
             compra.innerHTML=`
             <div class="datosfinales">
-            <h2 class="h22"> ${cliente.Nombre}, el valor del seguro para tu ${cliente.Tipo} es de $${Math.round(cliente.Precio)} mensuales.</h2>
-            <p class="pdatos"><b>Datos del asegurado:</b><br>
-            Nombre: ${cliente.Nombre}<br>
-            Contacto: ${cliente.Contacto}<br>
-            Tipo de vivienda: ${cliente.Tipo}<br>
-            Metros Cuadrados: ${cliente.Metros}<br>
-            Tipo de seguro: ${cliente.Seguro}<br>
-            Precio Mensual: $${Math.round(cliente.Precio)}<br>
-            Fecha de cotización: ${cliente.Fecha.toLocaleDateString('es-ES')}<br><br>
-            </p>
-            <h3 class="h33">Introduzca los datos nuevamente para una nueva cotización</h3>
+                <h2 class="h22"> ${cliente.Nombre}, el valor del seguro para tu ${cliente.Tipo} es de $${Math.round(cliente.Precio)} mensuales.</h2>
+                <div class="detalle">
+                    <p class="pdatos"><b>Datos del asegurado:</b><br>
+                        Nombre: ${cliente.Nombre}<br>
+                        Contacto: ${cliente.Contacto}<br>
+                        Tipo de vivienda: ${cliente.Tipo}<br>
+                        Metros Cuadrados: ${cliente.Metros}<br>
+                        Tipo de seguro: ${cliente.Seguro}<br>
+                        Precio Mensual: $${Math.round(cliente.Precio)}<br>
+                        Fecha de cotización: ${cliente.Fecha.toLocaleDateString('es-ES')}<br><br>
+                    </p>
+                    <button class="boton2" id="contacto">Quiero que me contacten</button>
+                </div>
+                <h3 class="h33">Introduzca los datos nuevamente para una nueva cotización</h3>
             </div>
             `;
+            
+            //al hacer click en QUIERO QUE ME CONTACTEN el Usuario queda guardado en localstorage con el mensaje contactar al cliente
+            document.getElementById("contacto").addEventListener("click", ()=> {
+                cliente.Contactar="Contactar al cliente";
+                let usuarioGuardado = JSON.stringify(cliente);
+                localStorage.setItem("cliente", usuarioGuardado);
+                let usuarioRecuperado = JSON.parse(localStorage.getItem('cliente'));
+                console.log(usuarioRecuperado, "datos del usuario guardado");
 
-            let usuarioRecuperado = JSON.parse(localStorage.getItem('cliente'));
-            console.log(usuarioRecuperado, "datos del usuario guardado");
+                Swal.fire({
+                    title: "Formulario enviado con éxito",
+                    text: "Uno de nuestros agentes se comunicará contigo",
+                    icon: "success",
+                    background: '#efefd0',
+                    color: '#051923',
+                    confirmButtonColor: '#72e0b8',                     
+                    });
+            console.log("al hacer click en QUIERO QUE ME CONTACTEN el Usuario queda guardado en localstorage con el mensaje contactar al cliente");
+                    
+            presupuesto= "";
+            cliente.Precio="";
+                setTimeout(() => {
+                    document.getElementById('nombre').value = ''
+                    document.getElementById('email').value = ''
+                    document.getElementById('vivienda').value = ''
+                    document.getElementById('metros').value = ''
+                    document.getElementById('tipoplan').value = ''
+                }, 2000);
+            
+            }); 
 
-            presupuesto= 0;
-            cliente.Precio=0;
-        } else{
-            const compra = document.getElementById('compra');
-            compra.innerHTML=`
-            <div class="datosfinales">
-            <h2 class="h22">Favor de completar los datos</h2>
-            `;} 
-
-            document.getElementById('nombre').value = ''
-            document.getElementById('email').value = ''
-            document.getElementById('vivienda').value = ''
-            document.getElementById('metros').value = ''
-            document.getElementById('tipoplan').value = ''
+        }
+    }
 
 //Programa COTIZADOR AUTO
-    } else if (event.target.id === 'miCotizacionauto') {            
+    } else if (event.target.id === 'miCotizacionauto') {        
+        
         const nombre = document.getElementById('nombre').value;
             clienteauto.Nombre= nombre;  
         const email = document.getElementById('email').value;
@@ -169,10 +206,9 @@ event.preventDefault();
             clienteauto.Marca= marca;
         const modelo = document.getElementById('modelo').value;
             clienteauto.Modelo= modelo;
-
         const año = document.getElementById('año').value;
             clienteauto.Año= año;
-            if(año <= 2015){
+            if(año!="" && año<= 2015){
                 clienteauto.Tipo= "auto viejo";
             } else if(año > 2015 && año <=2020){
                 clienteauto.Tipo= "Auto Semi Viejo";
@@ -181,18 +217,17 @@ event.preventDefault();
             } else if(año == 2025){
                 clienteauto.Tipo= "Auto 0 KM";
             }else {
-                clienteauto.Tipo= "ERROR, ingresar una opción correcta";
+                clienteauto.Tipo= ""
+                clienteauto.Año="";
             }
-
         const congnc = document.getElementById('congnc').value;
             if(congnc == 1){
                 clienteauto.GNC="Si";
             } else if(congnc == 2){
                 clienteauto.GNC="No";
             } else{
-                clienteauto.GNC= "Ingrese una opción";
+                clienteauto.GNC= "";
             }
-
         const tiposeguro = document.getElementById('tiposeguro').value;
             if(tiposeguro == 1){
                 clienteauto.Seguro= "Responsabilidad Civil";
@@ -201,10 +236,26 @@ event.preventDefault();
             }else if(tiposeguro == 3){
                 clienteauto.Seguro= "Todo Riesgo";
             }else {
-                clienteauto.Seguro= "ERROR, ingresar una opción correcta";
+                clienteauto.Seguro= "";
             }
 
-            if(año <= 2015){
+        // si no hay datos cargados sale mensaje de advertencia.
+        if (clienteauto.Nombre === "" ||
+            clienteauto.Contacto === "" ||
+            clienteauto.Marca === ""||
+            clienteauto.Modelo === "" ||
+            clienteauto.Año === "" ||
+            clienteauto.GNC === "" ||
+            clienteauto.Seguro === ""){
+                Swal.fire({
+                    title: "Completa todos los datos!",
+                    icon: "warning",
+                    background: '#efefd0',
+                    color: '#051923', 
+                    confirmButtonColor: '#72e0b8', 
+                    iconColor:"#b76b3c"
+        })} else{    
+            if(año!="" && año<= 2015){
                 if(tiposeguro == 1){
                 presupuestoauto= producto(autoviejo,respcivil);
                 }else if(tiposeguro == 2){
@@ -240,52 +291,66 @@ event.preventDefault();
             clienteauto.Precio= presupuestoauto;
             }     
 
-        if (presupuestoauto != 0){
+        if (presupuestoauto !="" || presupuestoauto!= 0){
             clienteauto.Fecha= new Date;
-
-            let usuarioGuardadoAuto = JSON.stringify(clienteauto);
-            localStorage.setItem("clienteauto", usuarioGuardadoAuto);
 
             const compraauto = document.getElementById('compraauto');
             compraauto.innerHTML=`
             <div class="datosfinales">
-            <h2 class="h22"> ${clienteauto.Nombre}, el valor del seguro para tu auto es de $${Math.round(clienteauto.Precio)} mensuales.</h2>
-            <p class="pdatos"><b>Datos del asegurado:</b><br>
-            Nombre: ${clienteauto.Nombre}<br>
-            Contacto: ${clienteauto.Contacto}<br>
-            Marca: ${clienteauto.Marca}<br>
-            Modelo: ${clienteauto.Modelo}<br>
-            Año: ${clienteauto.Año}<br>
-            GNC: ${clienteauto.GNC}<br>
-            Tipo de seguro: ${clienteauto.Seguro}<br>
-            Precio Mensual: $${Math.round(clienteauto.Precio)}<br>
-            Fecha de cotización: ${clienteauto.Fecha.toLocaleDateString('es-ES')}<br><br>
-            </p>
-            <h3 class="h33">Introduzca los datos nuevamente para una nueva cotización</h3>
+                <h2 class="h22"> ${clienteauto.Nombre}, el valor del seguro para tu auto es de $${Math.round(clienteauto.Precio)} mensuales.</h2>
+                <div class="detalle">
+                    <p class="pdatos"><b>Datos del asegurado:</b><br>
+                        Nombre: ${clienteauto.Nombre}<br>
+                        Contacto: ${clienteauto.Contacto}<br>
+                        Marca: ${clienteauto.Marca}<br>
+                        Modelo: ${clienteauto.Modelo}<br>
+                        Año: ${clienteauto.Año}<br>
+                        GNC: ${clienteauto.GNC}<br>
+                        Tipo de seguro: ${clienteauto.Seguro}<br>
+                        Precio Mensual: $${Math.round(clienteauto.Precio)}<br>
+                        Fecha de cotización: ${clienteauto.Fecha.toLocaleDateString('es-ES')}<br><br>
+                    </p>
+                    <button class="boton2" id="contacto">Quiero que me contacten</button>
+                </div>
+                <h3 class="h33">Introduzca los datos nuevamente para una nueva cotización</h3>
             </div>
             `;
             
-            let usuarioRecuperadoAuto = JSON.parse(localStorage.getItem('clienteauto'));
-            console.log(usuarioRecuperadoAuto, "datos del usuario guardado");
-            
-            presupuestoauto= 0;
-            clienteauto.Precio=0;
-    
-        } else{
-            const compraauto = document.getElementById('compraauto');
-            compraauto.innerHTML=`
-            <div class="datosfinales">
-            <h2 class="h22">Favor de completar los datos</h2>
-            `;} 
+            //al hacer click en QUIERO QUE ME CONTACTEN el Usuario queda guardado en localstorage con el mensaje contactar al cliente
+            document.getElementById("contacto").addEventListener("click", ()=> {
+                clienteauto.Contactar="Contactar al cliente";
+                let usuarioGuardadoAuto = JSON.stringify(clienteauto);
+                localStorage.setItem("clienteauto", usuarioGuardadoAuto);
+                let usuarioRecuperadoAuto = JSON.parse(localStorage.getItem('clienteauto'));
+                console.log(usuarioRecuperadoAuto, "datos del usuario guardado");
 
-        document.getElementById('nombre').value = ''
-        document.getElementById('email').value = ''
-        document.getElementById('marca').value = ''
-        document.getElementById('modelo').value = ''
-        document.getElementById('año').value = ''
-        document.getElementById('congnc').value = ''
-        document.getElementById('tiposeguro').value = ''
-    }
+                Swal.fire({
+                    title: "Formulario enviado con éxito",
+                    text: "Uno de nuestros agentes se comunicara contigo",
+                    icon: "success",
+                    background: '#efefd0',
+                    color: '#051923',
+                    confirmButtonColor: '#72e0b8',    
+                    });
+
+            console.log("al hacer click en QUIERO QUE ME CONTACTEN el Usuario queda guardado en localstorage con el mensaje contactar al cliente");
+            
+            presupuestoauto="";
+            clienteauto.Precio="";
+
+                setTimeout(() => {
+                    document.getElementById('nombre').value = ''
+                    document.getElementById('email').value = ''
+                    document.getElementById('marca').value = ''
+                    document.getElementById('modelo').value = ''
+                    document.getElementById('año').value = ''
+                    document.getElementById('congnc').value = ''
+                    document.getElementById('tiposeguro').value = ''
+                }, 2000);            
+            
+            });
+        }
+    }}
 });
 
 

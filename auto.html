@@ -58,16 +58,16 @@
         <input type="number" id="año" name="año">
         <br>
 
-        <label for="congnc">Tiene GNC:(introduce un número) <br>
+        <label for="congnc">Tiene GNC:<br>
           <dd>1) Si -- 2)No</label></dd>
-        <input type="number" id="congnc" name="congnc">
+        <input type="number" id="congnc" name="congnc" placeholder="Introduce un número">
         <br>
 
-        <label for="tiposeguro">Que tipo de seguro deseas:(introduce un número)<dd>1) Responsabilidad Civil -- 2) Terceros Completo --   3) Todo Riesgo </label></dd>
-        <input type="number" id="tiposeguro" name="tiposeguro">
+        <label for="tiposeguro">Que tipo de seguro deseas:<dd>1) Responsabilidad Civil -- 2) Terceros Completo --   3) Todo Riesgo </label></dd>
+        <input type="number" id="tiposeguro" name="tiposeguro" placeholder="Introduce un número">
         <br><br>
 
-        <button type="submit">Cotizar</button>
+        <button id="botonauto" type="submit">Cotizar</button>
         
         <div id="compraauto"></div>
     </form>
@@ -92,6 +92,7 @@
     </div>
 </footer>
 
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script src="js/main.js"></script>
 </body>
 </html>
