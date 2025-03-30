@@ -36,6 +36,23 @@ const gnc= 1.1;
 
 let presupuestoauto= "";
 
+//fetch
+
+const url= "https://jsonplaceholder.typicode.com/users";
+
+async function fetchUser(){
+    try{
+        const response = await fetch("https://jsonplaceholder.typicode.com/users")
+        const user= await response.json()
+        console.log("Datos recibidos de Usuarios para cotización",user)
+    } catch(error){
+        console.error("Error en el pedido de Usuarios, ",error.message)
+    }finally {
+        console.log("Continua")
+    }
+}    fetchUser()
+
+
 //declaro un Array de objetos para datos del auto
 const clienteauto ={
     Nombre: "",
@@ -54,12 +71,8 @@ function producto(a, b){
     return a * b;
 }
 
-
-
 document.addEventListener('submit', (event) =>{
 event.preventDefault();
-
-
 
 //Programa COTIZADOR HOGAR
     if (event.target.id === 'miCotizacion') {  
@@ -323,6 +336,8 @@ event.preventDefault();
                 localStorage.setItem("clienteauto", usuarioGuardadoAuto);
                 let usuarioRecuperadoAuto = JSON.parse(localStorage.getItem('clienteauto'));
                 console.log(usuarioRecuperadoAuto, "datos del usuario guardado");
+        
+
 
                 Swal.fire({
                     title: "Formulario enviado con éxito",
