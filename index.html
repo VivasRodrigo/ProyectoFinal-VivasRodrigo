@@ -26,7 +26,7 @@
         </nav>
         </div>
     </div>
-
+ 
     <div class="historia">
         <div class="texto">
             <h4>Quienes Somos</h4> <br>
@@ -80,5 +80,29 @@
     
 
       <script src="js/main.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script>
+        
+             window.onload = function() {
+                Swal.fire({
+                    title: '¡Bienvenido!',
+                    text: 'Cotizá hoy y obtené un 10% de descuento en tu cuota!',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Hogar",
+                    denyButtonText: "Auto",
+                    background: '#efefd0',
+                    color: '#051923',
+                    confirmButtonColor: '#72e0b8',
+                    denyButtonColor: "#4982a3",
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        window.location.href = "hogar.html"
+                    } else if (result.isDenied) {
+                        window.location.href = "auto.html";
+                    }});
+            }; 
+    </script>
 </body>
 </html>

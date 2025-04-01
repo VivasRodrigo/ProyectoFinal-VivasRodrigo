@@ -9,16 +9,19 @@ const completo= 1.2;
 const full= 1.4;
 
 let presupuesto= 0;
+let iduse= 10;//los usuarios de jsonplaceholder son 10, empiezan a grabar desde el 11
+let iduse1= 10;
 
 //declaro un Array de objetos para datos del hogar
 const cliente ={
-    Nombre: "",
+    Nombre: "rodri",
     Contacto: "",
     Tipo:"",
     Metros: "",
     Seguro:"",
     Precio: "",
     Fecha:"",
+    id:"",
 };
 
 //Variables COTIZADOR AUTO
@@ -35,23 +38,6 @@ const todoriesgo= 1.4;
 const gnc= 1.1;
 
 let presupuestoauto= "";
-
-//fetch
-
-const url= "https://jsonplaceholder.typicode.com/users";
-
-async function fetchUser(){
-    try{
-        const response = await fetch("https://jsonplaceholder.typicode.com/users")
-        const user= await response.json()
-        console.log("Datos recibidos de Usuarios para cotización",user)
-    } catch(error){
-        console.error("Error en el pedido de Usuarios, ",error.message)
-    }finally {
-        console.log("Continua")
-    }
-}    fetchUser()
-
 
 //declaro un Array de objetos para datos del auto
 const clienteauto ={
@@ -71,12 +57,69 @@ function producto(a, b){
     return a * b;
 }
 
+
+
+//fetch
+const url= "https://jsonplaceholder.typicode.com/users";
+async function fetchUser(){
+    try{
+        const response = await fetch("https://jsonplaceholder.typicode.com/users")
+        const user= await response.json()
+        console.log("Datos recibidos de Clientes Cotizados",user)
+
+//SIMULACION: buscar cotizacion DEL HOGAR a través del fetch
+        
+        document.getElementById("buscar").addEventListener("click", ()=> {
+        const idcotizacion = document.getElementById('idcotizacion').value;
+        idusuario=idcotizacion;
+        if (idusuario ==="" || idusuario==0 || idusuario>10){
+            Swal.fire({
+            title: "Introduce tu Numero de ID!",
+            icon: "warning",
+            background: '#efefd0',
+            color: '#051923', 
+            confirmButtonColor: '#72e0b8', 
+            iconColor:"#f58a18"
+            });
+        }else {    
+            const userid = user.filter(function(idd) {
+                return idd.id == idusuario;
+            });
+            console.log(userid);
+            console.log("ESTO SIMULA LO SIGUIENTE: si el numero de ID es incorrecto sale msj de ERROR, si es correcto se muestran los datos del cliente extraidos de la base de datos descargados con fetch")
+            const buscarcoti = document.getElementById('buscarcoti');
+            buscarcoti.innerHTML=`
+                <div class="datosfinales1">
+                    <h2 class="h22">Detalle de tu Cotización:</h2>
+                    <div class="detalle">
+                    <p class="pdatos1"><b>Datos del asegurado:</b><br>
+                    Nombre: ${userid[0].name}<br>
+                    Email: ${userid[0].email}<br>
+                    Telefono: ${userid[0].phone}<br>
+                    Tipo de vivienda: <br>
+                    Metros Cuadrados: <br>
+                    Tipo de seguro: <br>
+                    Precio Mensual: <br>
+                    Fecha de cotización:<br>
+                    Cotización ID N°:  ${idusuario}
+                    </p>
+                    </div>
+                </div>
+                `;}
+            document.getElementById('idcotizacion').value = ''
+            });        
+
+    }catch(error){
+    console.error("Error en el pedido de Usuarios.",error.message)
+    }finally {
+    console.log("Aca se puede ver que el programa no puede cargar los usuarios, sin embargo el programa continua sin problemas")}
+    }    fetchUser()
+
+//Programa COTIZADOR HOGAR
 document.addEventListener('submit', (event) =>{
 event.preventDefault();
 
-//Programa COTIZADOR HOGAR
     if (event.target.id === 'miCotizacion') {  
-
         const nombre = document.getElementById('nombre').value;
             cliente.Nombre= nombre;
         const email = document.getElementById('email').value;
@@ -117,7 +160,6 @@ event.preventDefault();
                 iconColor:"#f58a18"
                 });
         } else{
-    
         if(vivienda == 1){
             if(metros >0 && metros <=150){
                 if(tipoplan == 1){
@@ -151,9 +193,10 @@ event.preventDefault();
             }}}
 
         cliente.Precio= presupuesto;        
-
         if (presupuesto !="" || presupuesto!= 0){
             cliente.Fecha= new Date;
+            iduse++
+            cliente.id=iduse
 
             const compra = document.getElementById('compra');
             compra.innerHTML=`
@@ -167,7 +210,8 @@ event.preventDefault();
                         Metros Cuadrados: ${cliente.Metros}<br>
                         Tipo de seguro: ${cliente.Seguro}<br>
                         Precio Mensual: $${Math.round(cliente.Precio)}<br>
-                        Fecha de cotización: ${cliente.Fecha.toLocaleDateString('es-ES')}<br><br>
+                        Fecha de cotización: ${cliente.Fecha.toLocaleDateString('es-ES')}<br>
+                        ID: ${cliente.id}<br><br>
                     </p>
                     <button class="boton2" id="contacto">Quiero que me contacten</button>
                 </div>
@@ -306,6 +350,8 @@ event.preventDefault();
 
         if (presupuestoauto !="" || presupuestoauto!= 0){
             clienteauto.Fecha= new Date;
+            iduse1++
+            clienteauto.id=iduse
 
             const compraauto = document.getElementById('compraauto');
             compraauto.innerHTML=`
@@ -337,8 +383,6 @@ event.preventDefault();
                 let usuarioRecuperadoAuto = JSON.parse(localStorage.getItem('clienteauto'));
                 console.log(usuarioRecuperadoAuto, "datos del usuario guardado");
         
-
-
                 Swal.fire({
                     title: "Formulario enviado con éxito",
                     text: "Uno de nuestros agentes se comunicara contigo",
@@ -367,8 +411,6 @@ event.preventDefault();
         }
     }}
 });
-
-
 
 
 

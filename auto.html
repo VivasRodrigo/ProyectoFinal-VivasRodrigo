@@ -30,49 +30,62 @@
   </div>
 
   <div class="cuerpo">
-    <h1>Cotizador de seguros para el auto</h1>
-    <h2>Introduzca los datos correctamente para realizar la cotización</h2>
 
-    <form id="miCotizacionauto">
-        <label for="nombre">Introduce tu nombre completo:</label>
-        <br>
-        <input type="text" id="nombre" name="nombre">
-        <br>
+    <div class="cotizador">
+        <h1>Cotizador de seguros para el auto</h1>
+        <h2>Introduzca los datos correctamente para realizar la cotización</h2>
+        <form id="miCotizacionauto">
+            <label for="nombre">Introduce tu nombre completo:</label>
+            <br>
+            <input type="text" id="nombre" name="nombre">
+            <br>
 
-        <label for="email">Introduce tu Email de contacto:</label>
-        <br>
-        <input type="email" id="email" name="email">
-        <br>
+            <label for="email">Introduce tu Email de contacto:</label>
+            <br>
+            <input type="email" id="email" name="email">
+            <br>
 
-        <label for="marca">Marca:</label>
-        <br>
-        <input type="text" id="marca" name="marca">
-        <br>
+            <label for="marca">Marca:</label>
+            <br>
+            <input type="text" id="marca" name="marca">
+            <br>
 
-        <label for="modelo">Modelo:</label>
-        <br>
-        <input type="text" id="modelo" name="modelo">
-        <br>
+            <label for="modelo">Modelo:</label>
+            <br>
+            <input type="text" id="modelo" name="modelo">
+            <br>
 
-        <label for="año">Año:</label>
-        <br>
-        <input type="number" id="año" name="año">
-        <br>
+            <label for="año">Año:</label>
+            <br>
+            <input type="number" id="año" name="año">
+            <br>
 
-        <label for="congnc">Tiene GNC:<br>
-          <dd>1) Si -- 2)No</label></dd>
-        <input type="number" id="congnc" name="congnc" placeholder="Introduce un número">
-        <br>
+            <label for="congnc">Tiene GNC:<br>
+              <dd>1) Si -- 2)No</label></dd>
+            <input type="number" id="congnc" name="congnc" placeholder="Introduce un número">
+            <br>
 
-        <label for="tiposeguro">Que tipo de seguro deseas:<dd>1) Responsabilidad Civil -- 2) Terceros Completo --   3) Todo Riesgo </label></dd>
-        <input type="number" id="tiposeguro" name="tiposeguro" placeholder="Introduce un número">
-        <br><br>
+            <label for="tiposeguro">Que tipo de seguro deseas:<dd>1) Responsabilidad Civil -- 2) Terceros Completo --   3) Todo Riesgo </label></dd>
+            <input type="number" id="tiposeguro" name="tiposeguro" placeholder="Introduce un número">
+            <br><br>
 
-        <button id="botonauto" type="submit">Cotizar</button>
-        
-        <div id="compraauto"></div>
-    </form>
-  
+            <button id="botonauto" type="submit">Cotizar</button>
+          </form>
+
+  </div>
+    <div id="compraauto"></div>
+    <div class="buscador">
+      <br>
+      <h1>Busca tu Cotización</h1>
+            <label for="idcotizacion1">Introduce el número de ID de tu cotización</label>
+            <br>
+            <input type="number" id="idcotizacion1" name="idcotizacion1" placeholder="Simula entre 1 y 10">
+            <br> <br>
+            <button id="buscar2">Buscar</button>
+          
+      <div id="buscarcoti1"></div>
+    </div>
+      
   </div>
 <footer>
     <div class="foot">

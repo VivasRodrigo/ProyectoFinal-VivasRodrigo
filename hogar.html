@@ -30,42 +30,55 @@
   </div>
 
   <div class="cuerpo">
-  <h1>Cotizador de seguros para el hogar</h1>
-  <h2>Introduzca los datos correctamente para realizar la cotización</h2>
 
-    <form id="miCotizacion">
-        <label for="nombre">Introduce tu nombre completo:</label>
-        <br>
-        <input type="text" id="nombre" name="nombre">
-        <br>
+    <div class="cotizador">
+      <h1>Cotizador de seguros para el hogar</h1>
+      <h2>Introduzca los datos correctamente para realizar la cotización</h2>
+      <form id="miCotizacion">
+          <label for="nombre">Introduce tu nombre completo:</label>
+          <br>
+          <input type="text" id="nombre" name="nombre">
+          <br>
 
-        <label for="email">Introduce tu Email de contacto:</label>
-        <br>
-        <input type="email" id="email" name="email">
-        <br>
+          <label for="email">Introduce tu Email de contacto:</label>
+          <br>
+          <input type="email" id="email" name="email">
+          <br>
 
-        <label for="vivienda">Tipo de Vivienda:<br>
-          <dd>1) Casa -- 2)Departamento</label>
+          <label for="vivienda">Tipo de Vivienda:<br>
+            <dd>1) Casa -- 2)Departamento</label>
+            </dd>
+          <input type="number" id="vivienda" name="vivienda" placeholder="Introduce un número">
+          <br>
+
+          <label for="metros">Cuantos metros cuadrados posee?</label>
+          <br>
+          <input type="number" id="metros" name="metros">
+          <br>
+
+          <label for="tipoplan">Que tipo de seguro deseas:<dd>1) Básico -- 2) Completo --   3) Full </label>
           </dd>
-        <input type="number" id="vivienda" name="vivienda" placeholder="Introduce un número">
-        <br>
+          <input type="number" id="tipoplan" name="tipoplan" placeholder="Introduce un número">
+          <br><br>
 
-        <label for="metros">Cuantos metros cuadrados posee?</label>
-        <br>
-        <input type="number" id="metros" name="metros">
-        <br>
-
-        <label for="tipoplan">Que tipo de seguro deseas:<dd>1) Básico -- 2) Completo --   3) Full </label>
-        </dd>
-        <input type="number" id="tipoplan" name="tipoplan" placeholder="Introduce un número">
-        <br><br>
-
-        <button id="botonhogar">Cotizar</button>
-                
+          <button id="botonhogar">Cotizar</button>
+        </form> 
+        </div>  
+          
         <div id="compra"></div>
-      
-    </form>
-   
+       
+    <div class="buscador">
+      <br>
+      <h1>Busca tu Cotización</h1>
+            <label for="idcotizacion">Introduce el número de ID de tu cotización</label>
+            <br>
+            <input type="number" id="idcotizacion" name="idcotizacion" placeholder="Simula entre 1 y 10">
+            <br> <br>
+            <button id="buscar">Buscar</button>
+          
+      <div id="buscarcoti"></div>
+    </div>
+
   </div>
   <footer>
       <div class="foot">
